@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!--  -->
+	<constant name="struts.allowed.action.names" value="[a-zA-Z0-9._!/\-*]*"></constant>
+	<package name="ssh" extends="struts-default" namespace="/" >
+	
+	
+	<!-- 员工的action配置 -->
+		<action name="employee_*" class="employeeAction" method="{1}">
+			<result name="input">/index.jsp</result>
+			<result name="success" type="redirect">/frame.jsp</result>
+			<result name="findAll">/listEmployee.jsp</result>
+		</action>
+		
+	<!-- 部门的action配置 -->	
+		<action name="department_*" class="departmentAction" method="{1}">
+			<result name="findAll">/listDep.jsp</result>
+		</action>
+			
+	</package>
+</struts>    
