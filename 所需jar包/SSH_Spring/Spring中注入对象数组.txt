@@ -1,0 +1,208 @@
+﻿Spring的数据注入技术：《数组与集合的注入》spring 
+
+1. 对象数组的映射：在Bean中有一个属性是user的对象数组！：
+
+    public class UserBean {
+        private User[] allUsers;//对象数组的声明
+public User[] getAllUsers() {
+   return allUsers;
+}
+public void setAllUsers(User[] allUsers) {
+   this.allUsers = allUsers;
+} }
+
+我们在配置文件中怎么样去配置呢：applicationContext.xml应该这样写：
+
+<!-- 实例化三个具体的user类的对象并初始化 -->
+<bean id="user1" class="org.sqs.Spring.demo04.User">
+     <property name="name">
+        <value>小宋</value>
+     </property>
+</bean>
+<bean id="user2" class="org.sqs.Spring.demo04.User">
+       <property name="name">
+           <value>xiaosong</value>
+       </property>
+</bean>
+<bean id="user3" class="org.sqs.Spring.demo04.User">
+       <property name="name">
+           <value>新国际</value>
+       </property>
+</bean>
+<!-- 实例化一个UserBean类 -->
+<bean id="users" class="org.sqs.Spring.demo04.UserBean">
+      <!-- 取得UserBean类中的属性allUsers（是user的一个对象数组） -->
+      <property name="allUsers">
+            <!—用list标签表示要将对象数组allUsers中注入user -->
+         <list> 
+             <!-- 不要忘记使用list节点 -->
+             <ref bean="user1"/>
+             <ref bean="user2"/>
+             <ref bean="user3"/>
+         </list>
+      </property>
+</bean>
+
+这样在客户端就可以一一拿到对象数组中的对象了！
+
+2.    List集合的注入技术：在Bean中有一个属性是List类型的！
+public class UserBean {
+     private List allUsers;
+public List getAllUsers() {
+return allUsers;
+}
+public void setAllUsers(List allUsers) {
+   this.allUsers = allUsers;
+}
+}
+则在配置文件中的配置方式与对象数组是一致的没有什么差别，就依照上面的写就可以了！
+3. Map集合的注入技术：在bean中的一个属性是Map类型的
+   public class UserBean {
+    private Map allUsers;
+public Map getAllUsers() {
+   return allUsers;
+}
+public void setAllUsers(Map allUsers) {
+   this.allUsers = allUsers;
+}
+}
+在配置文件中的配置就应该是这样的写了：
+<!-- 实例化三个具体的user类的对象并初始化 -->
+<bean id="user1" class="org.sqs.Spring.demo06.User">
+     <property name="name">
+        <value>小宋</value>
+     </property>
+</bean>
+<bean id="user2" class="org.sqs.Spring.demo06.User">
+       <property name="name">
+           <value>xiaosong</value>
+       </property>
+</bean>
+
+<bean id="user3" class="org.sqs.Spring.demo06.User">
+       <property name="name">
+           <value>新国际</value>
+       </property>
+</bean>
+<!-- 实例化一个UserBean类 -->
+<bean id="users" class="org.sqs.Spring.demo06.UserBean">
+      <!-- 取得UserBean类中的属性allUsers（是一个Map集合） -->
+      <property name="allUsers">
+               <!-- 要将键值注入到UserBean实例的map之中 -->
+              <map>
+                  <!--这里加入<entry>节点表是是键值对!key属性表示键，下面的ref节点就表示是值！ -->
+                 <entry key="p1">
+                      <ref bean="user1"/>
+                 </entry>
+                 <entry key="p2">
+                      <ref bean="user2"/>
+                 </entry>
+                 <entry key="p3">
+                      <ref bean="user3"/>
+                 </entry>
+              </map>
+      </property>
+</bean>
+
+4.Properties类对象的注入技术：在Bean中有一个Properties类的属性，Property是Map的子类，所以也是键值对的组合：
+在UserBean中是这样声明的：
+     public class UserBean {
+       private Properties some;
+    public Properties getSome() {
+       return some;
+    }
+    public void setSome(Properties some) {
+      this.some = some;
+   }
+}
+在applicationContext.xml中配置是：
+
+<!-- 实例化一个UserBean类 -->
+<bean id="users" class="org.sqs.Spring.demo07.UserBean">
+      <!-- 取得UserBean类中的属性allUsers（是一个Map集合） -->
+      <property name="some">
+              <props>
+                  <prop key="some1">小宋</prop>
+                  <prop key="some2">XiaoSong</prop>
+                  <prop key="some3">XinGuoJi</prop>
+              </props>
+      </property>
+</bean>
+其实some实例就是一个Map集合：使用<props>标签加入很多的属性键值：
+用<prop key="some1">小宋</prop> 加入具体的每一个属性（是键值对的形式）！
+这样在客户端就可以进行访问了！
+
+
+=======================================================================================
+1.数组的注入：
+<bean>
+	<property name="barlist">
+		<list>
+			<value>bar1</value>
+			<value>bar2</value>
+			<value>bar4</value>
+		</list>
+		
+	</property>
+</bean>
+2.list的注入 
+为了方便举例子，先创建两个bean：emp1,emp2
+<bean>
+	<property name="barlist">
+		<list>
+			<ref bean = "emp1">
+			<ref bean = "emp2">
+		</list>
+	</property>
+</bean>
+
+取出list集合中的值：
+for(Employee e : department.getEmplist()){
+	System.out.println(e.getName());
+}
+
+3.set集合的注入
+<bean>
+	<property name="barlist">
+		<set>
+			<ref bean = "emp1">
+			<ref bean = "emp2">
+		</set>
+	</property>
+</bean>
+
+** 取值同list集合一样
+
+4.Map集合的注入
+<bean>
+	<property name="barlist">
+		<map>
+			<entry  key="1" value-ref="emp1" />
+			<entry  key="2" value-ref="emp2" />
+		</map>
+	</property>
+</bean>
+
+从map集合中取值：
+方法1：直接取值
+ for(Entry<String ,Employee> entry1:department.getEmpMaps().entrySet()){
+	System.out.println(entry1.getKey()+" " +entry1.getValue().getName());
+ }
+方法2：使用Iterator迭代器
+	Map<String,Employee> empmaps = department.getEmpMaps();
+	Iterator it =empmaps.keySet().iterator();
+	while(it.hasNext()){
+		String key = (String)it.next();
+		Employee emp = empmaps.get(key);
+		System.out.println("key="+key +" "+emp.getName());
+	}
+
+
+
+
+
+
+
+
+
+这样在客户端就可以一一拿到对象数组中的对象了！
