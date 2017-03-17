@@ -1,2 +1,2 @@
 # EmployeeManagerDemo
-这是我的第一个SSH框架Demo，希望可以坚持不断完善它
+第一个SSH框架Demo，主要进行企业的员工和部门管理，目的在与巩固对于SSH框架的认识
