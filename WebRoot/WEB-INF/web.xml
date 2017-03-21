@@ -3,6 +3,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name></display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- 添加自定义的过滤器  -->
+	<filter>
+		<filter-name>ResourceFilter</filter-name>
+		<filter-class>cn.qdgr.employee.filter.ResourceFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ResourceFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
 	<!-- spring解决hibernate的Session的关闭与开启，允许在事务提交之后延迟加载显示所需要的对象 -->
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
@@ -12,7 +28,7 @@
 		<filter-name>OpenSessionInViewFilter</filter-name>
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
-
+	
 	<!-- Struts2框架核心过滤器的配置 -->
 	<filter>
 		<filter-name>struts2</filter-name>
@@ -32,8 +48,4 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 
-	<display-name></display-name>
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
 </web-app>

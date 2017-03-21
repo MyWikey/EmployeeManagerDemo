@@ -3,20 +3,33 @@
 <struts>
 	<!--  -->
 	<constant name="struts.allowed.action.names" value="[a-zA-Z0-9._!/\-*]*"></constant>
-	<package name="ssh" extends="struts-default" namespace="/" >
-	
-	
+	<package name="ssh" extends="struts-default" namespace="/">
+	<!-- 定义拦截器 -->  
+		<interceptors>  
+		    <interceptor name="PrivilegeInterceptor" class="cn.qdgr.employee.interceptor.PrivilegeInterceptor"></interceptor>  
+		    <!-- 自定义一个拦截器栈 -->
+		    <interceptor-stack name="myStack">
+		    	<interceptor-ref name="defaultStack"></interceptor-ref>
+		    	<interceptor-ref name="PrivilegeInterceptor">
+		    		<param name="excludeMethods">login</param>
+		    	</interceptor-ref>
+		    </interceptor-stack>
+		</interceptors>
+		
 	<!-- 员工的action配置 -->
 		<action name="employee_*" class="employeeAction" method="{1}">
+			<result name="login" type="redirect">/index.jsp</result>
 			<result name="input">/index.jsp</result>
 			<result name="success" type="redirect">/frame.jsp</result>
 			<result name="findAll">/listEmployee.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
 		</action>
-		
+        
 	<!-- 部门的action配置 -->	
 		<action name="department_*" class="departmentAction" method="{1}">
+			<result name="login" type="redirect">/index.jsp</result>
 			<result name="findAll">/listDep.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
 		</action>
-			
 	</package>
 </struts>    

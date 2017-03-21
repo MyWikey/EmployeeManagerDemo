@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -9,8 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="utf-8">
 <title>登陆</title>
-<link type="text/css" rel="stylesheet" href="${ pageContext.request.contextPath }/style/reset.css">
-<link type="text/css" rel="stylesheet" href="${ pageContext.request.contextPath }/style/main.css">
+<link type="text/css" rel="stylesheet" href="style/reset.css">
+<link type="text/css" rel="stylesheet" href="style/main.css">
 <!--[if IE 6]>
 <script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js"></script>
 <script type="text/javascript" src="js/ie6Fixpng.js"></script>
@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li class="mb_10"><input type="text" name="username" class="login_input user_icon"></li>
 				<li class="l_tit">密码</li>
 				<li class="mb_10"><input type="password" name="password" class="login_input user_icon"></li>
-				<li><input type="submit" value="" class="login_btn"></li>
+				<li><input type="submit" value="" class="login_btn" style="background:url(${ pageContext.request.contextPath }/images/icon/login_btn.jpg)"></li>
 			</ul>
 			<div class="login_partners">
 				<p class="l_tit">使用合作方账号登陆网站</p>

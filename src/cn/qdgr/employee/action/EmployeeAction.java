@@ -37,12 +37,12 @@ public class EmployeeAction extends ActionSupport implements
 	 * 登录执行的方法
 	 */
 	public String login() {
-		System.out.println("login执行成功");
+		System.out.println("login执行中");
 		// 调用业务层的方法
 		Employee existEmployee = employeeService.login(employee);
 		if (existEmployee == null) {
 			// 登录失败
-			this.addActionError("用户名或者密码错!");
+			this.addActionError("用户名或者密码错误!");
 			return INPUT;
 		} else {
 			// 登录成功
